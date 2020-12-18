@@ -1,0 +1,31 @@
+função: partição
+    M = conjunto de vértices com maximo grau (D)
+    seja H_1 e H_2 uma partição de Euler de G;
+    seja M_1 = {v | v pertence a M e tem grau 2*r + e em H_1};
+    enquanto (|M_2| != 0) faça:
+        seja H_21, H_22 uma partição de Euler de H_2;
+        seja M_21 = {v pertence a M_2 e v tem grau k + d em H_21};
+        seja M_22 = M_2 - M_21;
+        se k é par:
+            H_1 = H_1 U H_21, H_2 = H_22;
+        se não:
+            H_1 = H_22, H_2 = H_1 U H_21;
+        M_1 = M_1 U M_21, M_2 = M_22;
+    G_1 = H_1, G_2 = H_2;
+Fim
+
+
+
+função colore:
+    se D é impar:
+        usando o segundo algoritmo de emparelhamento, encontre um emparelhamento
+        N cobrindo os vértices em M. Colore as arestas em N com uma cor e delete
+        N de G;
+        S = S U {N}, D = D - 1;
+    Faça uma partição de euler de G para receber G_1 e G_2, cada um com D/2 grau maximo;
+    Se G_1 tem menos arestas que G_2, troque G_1 e G_2;
+    colore(G_1);
+    seja 2^k < D/2 = 2^{k+1} - r. Adicione r conjuntos de arestas coloridas a G_2 e delete
+    de S;
+    colore(G_2);
+Fim
